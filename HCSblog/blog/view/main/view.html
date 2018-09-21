@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../public/css/main.css" rel="stylesheet" type="text/css">
+    <link href="../../public/fontAwesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <a href="#" target="_parent">
+                <span class="sign">HCS&blog</span>
+                <span>Study Hard and Make Progress every day</span>
+            </a>
+        </div>
+        <div class="main">
+            <div class="mainLeft">
+                {% if userInfo.uid %}
+                <div class="leftBox" id="userInfo"><!--style="display:none"-->
+                    <div class="title"><span>用户信息</span></div>
+                    <p class="userName"><span class="colDark">{{userInfo.uname}}</span></p>
+                    <!--判断是否是管理员-->
+                    {% if userInfo.isAdmin==1 %}
+                    <p class="adminInfo">
+                        <span class="colDanger">您好，管理员！</span>
+                        <a href="/admin">进入管理界面</a>
+                    </p>
+                    {%else%}
+                    <p><span class="colDanger">你好，欢迎光临我的博客！</span></p>
+                    {%endif%}
+                    <p><span class="colDark"><a href="javascript:;" id="logout">退出</a></span></p>
+                </div>
+                {%else%}
+                <div class="leftBox" id="loginBox">
+                    <div class="title"><span>登录</span></div>
+                    <div class="line"><span class="colDark">用户名：</span><input name="username" id="uname" type="text" /><em></em></div>
+                    <div class="line"><span class="colDark">密码：</span><input name="password"  id="pwd" type="password" /><em></em></div>
+                    <div class="line"><span class="colDark"></span><button>登 录</button></div>
+                    <p class="textRight">还没注册？<a href="javascript:;" class="colMint">马上注册</a>　</p>
+                    <p class="colWarning textCenter"></p>
+                </div>
+                <div class="leftBox" id="registerBox" style="display:none;">
+                    <div class="title"><span>注册</span></div>
+                    <div class="line"><span class="colDark">用户名：</span><input name="username" id="zcuname" type="text"/></div>
+                    <div class="line"><span class="colDark">密码：</span><input name="password" id="zcpwd" type="password" /></div>
+                    <div class="line"><span class="colDark">确认：</span><input name="repassword" id="zcpwdagain" type="password" /></div>
+                    <div class="line"><span class="colDark"></span><button>注 册</button></div>
+                    <p class="textRight">已有账号？<a href="javascript:;" class="colMint">马上登录</a>　</p>
+                    <p class="colWarning textCenter"></p>
+                </div>
+                {%endif%}
+                <div class="leftBox">
+                    <h2 class="person"><p>个人相册</p></h2>
+                    <div class="slide">
+                        <div class="ad_pic">
+                            <a href="" style="left:0%;">
+                                <img src="../../public/images/pict_1.jpg" id="lisPic" style="width:200px;height:200px;"/>
+                            </a>
+                        </div>
+                        <div class="adBtn">
+                            <a href="javascript:void(0)" onMouseOver="show(1)" onMouseOut="start()" class="on"></a>
+                            <a href="javascript:void(0)" onMouseOver="show(2)" onMouseOut="start()" class=""></a>
+                            <a href="javascript:void(0)" onMouseOver="show(3)" onMouseOut="start()" class=""></a>
+                            <a href="javascript:void(0)" onMouseOver="show(4)" onMouseOut="start()" class=""></a>
+                            <a href="javascript:void(0)" onMouseOver="show(5)" onMouseOut="start()" class="on"></a>
+                        </div>
+                    </div>
+                    <!--<h2 class="person"><p>个人档案</p></h2>-->
+                    <!--<div class="vcard">-->
+                        <!--<p class="fn">姓名：杨青</p>-->
+                        <!--<p class="nickname">网名：DanceSmile | 即步非烟</p>-->
+                        <!--<p class="url">主页：<a href="/" target="_blank">www.yangqq.com</a></p>-->
+                        <!--<p class="address">现居：天津市—滨海新区</p>-->
+                        <!--<p class="role">职业：网站设计、网站制作</p>-->
+                    <!--</div>-->
+                    <!--<h2 class="person"><p>博客分类</p></h2>-->
+                    <!--<ul class="news">-->
+                        <!--<li><a href="/">慢生活(3)</a></li>-->
+                        <!--<li><a href="/">程序人生(25)</a></li>-->
+                        <!--<li><a href="/">经典美文(39)</a></li>-->
+                    <!--</ul>-->
+                    <h2 class="person"><p>小贴士</p></h2>
+                    <ul class="news">
+                        <li><a href="/">回到首页</a></li>
+                        <li><a href="/">也许下个路口就会遇见希望</a></li>
+                        <li><a href="/">6月毕业季，祝福送给你</a></li>
+                        <li><a href="/">生活常有缺席的-可搞笑从来不缺席</a></li>
+                        <li><a href="/">为了一个不存在的梦，执念了那么多年</a></li>
+                        <li><a href="/">妹妹，明天你就要嫁人啦</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mainRight">
+                <div class="menu">
+                    <!--模板引擎的循环-->
+                {% for type in types %}
+                    {% if type.tid==mytype %}
+                    <a href="/?mytype={{type.tid}}" class="active">{{type.tname}}</a>
+                    {%else%}
+                    <a href="/?mytype={{type.tid}}">{{type.tname}}</a>
+                    {%endif%}
+                {%endfor%}
+                </div>
+                <div class="aboutMe">
+                    <div class="slide2">
+                        <div class="ad_pic2">
+                            <a href="" style="left:0%;">
+                                <img src="../../public/images/pc_1.jpg" id="lisPics" style="width:720px;height:280px;"/>
+                            </a>
+                        </div>
+                        <!--<div class="adBtn">-->
+                        <!--<a href="javascript:void(0)" onMouseOver="show(1)" onMouseOut="start()" class="on"></a>-->
+                        <!--<a href="javascript:void(0)" onMouseOver="show(2)" onMouseOut="start()" class=""></a>-->
+                        <!--<a href="javascript:void(0)" onMouseOver="show(3)" onMouseOut="start()" class=""></a>-->
+                        <!--<a href="javascript:void(0)" onMouseOver="show(4)" onMouseOut="start()" class=""></a>-->
+                        <!--<a href="javascript:void(0)" onMouseOver="show(5)" onMouseOut="start()" class="on"></a>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="allContent">
+                    <h2>Welcome to My WebSite!</h2>
+                    <div class="content_box">
+                        <!--<div class="tch-img">-->
+                        <!--<a href="">-->
+                        <!--<img src="../../public/images/p1.jpg" class="img-responsive" alt="" style="width:240px;height:180px;">-->
+                        <!--</a>-->
+                        <!--</div>-->
+
+                        <div class="listBox" id="viewBox">
+                            <h1>{{content.title}}</h1>
+
+                            <dfn><p>{{content.content}}</p></dfn>
+
+
+                            <p class="colDefault coltext">
+                                作者：<span class="colInfo">{{content.uname}}</span> -
+                                时间：<span class="colInfo">{{content.addTime|date('Y年m月d日 H:i:s')}}</span> -
+                                阅读：<span class="colInfo">{{content.views}}</span> -
+                                评论：<span class="colInfo">
+                                        {%if content.comments%}
+                                            {{content.comments}}
+                                        {%else%}
+                                            0
+                                        {%endif%}
+                                    </span>
+                            </p>
+
+                        </div>
+                        <div class="listBox message">
+                            <h3 class="textLeft"><strong>评论</strong> <span class="em">一共有 <em id="messageCount">0</em> 条评论</span></h3>
+
+                            {%if userInfo.uid%}
+                            <p class="textLeft">{{userInfo.uname}}</p>
+                            <p class="textLeft clear">
+                                <textarea id="messageContent"></textarea>
+                                <input type="hidden" id="contentId" value="{{content.cid}}" />
+                                <button id="messageBtn" class="submit">提交</button>
+                            </p>
+                            {%else%}
+                            <p class="bgDanger" style="line-height:30px;">你还没有登陆，请先登陆</p>
+                            {%endif%}
+
+                            <div class="messageList">
+                                {%for content1 in contents%}
+                                <div class="messageBox">
+                                    <p class="name clear">
+                                        <span class="f1">{{content.uname}}</span>
+                                        <span class="fr">2018年8月20日 16:25:30</span>
+                                    </p>
+                                    <p>{{content1.comment}}</p>
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="bottom_line"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../public/js/jquery-1.12.4.min.js"></script>
+    <script src="../../public/js/index.js"></script>
+    <script src="../../public/js/comment.js"></script>
+</body>
+</html>
